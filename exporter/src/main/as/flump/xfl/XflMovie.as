@@ -58,12 +58,10 @@ public class XflMovie extends XflSymbol
             var maskName:String;
             for each (var layerEl :XML in layerEls) {
                 var layerType :String = XmlUtil.getStringAttr(layerEl, XflLayer.TYPE, "");
-                lib.addError(location, ParseError.INFO, layerType);
                 if ((layerType != XflLayer.TYPE_GUIDE) && (layerType != XflLayer.TYPE_FOLDER)) {
                     if (XmlUtil.hasAttr(layerEl, "parentLayerIndex")) {
                         if (maskName) {
                             movie.layers.unshift(XflLayer.parse(lib, location, layerEl, false, maskName));    
-                            lib.addError(location, ParseError.INFO, "Mask: "+maskName);
                         }
                         else {
                             lib.addError(location, ParseError.WARN, "Only one masked layer is authorized on '" + movie.id + "'. The other masked layers are ignored from mask.");

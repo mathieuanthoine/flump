@@ -1,5 +1,6 @@
 airsdk
 flex
+exporter/etc
 exporter/src/test/export
 exporter/buildWithAnt.bat
 exporter/debugWithAdl.bat
