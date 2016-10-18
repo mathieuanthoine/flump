@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://ns.adobe.com/air/application/21.0">
-  <id>flump+</id>
+  <id>flump</id>
   <versionNumber>0.1.1</versionNumber>
-  <filename>Flump</filename>
+  <filename>Flump+</filename>
   <initialWindow>
     <renderMode>direct</renderMode>
     <content>flump-exporter.swf</content>
