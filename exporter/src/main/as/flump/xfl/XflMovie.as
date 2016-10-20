@@ -45,6 +45,12 @@ public class XflMovie extends XflSymbol
         movie.id = lib.createId(movie, name, exportName);
         const location :String = lib.location + ":" + movie.id;
 		
+		// persistent Data
+        if (xml.persistentData != null) {
+            var data:Object = XflCustomData.getCustomData(xml.persistentData);
+            if (data != null) movie.data = data;
+        }
+		
 		// base Class
         if (XmlUtil.getStringAttr(xml, "symbolType", null) == "button") movie.baseClass = "flash.display.SimpleButton";
         else {
