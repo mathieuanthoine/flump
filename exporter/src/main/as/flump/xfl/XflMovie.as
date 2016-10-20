@@ -44,6 +44,13 @@ public class XflMovie extends XflSymbol
         const exportName :String = XmlUtil.getStringAttr(xml, EXPORT_CLASS_NAME, null);
         movie.id = lib.createId(movie, name, exportName);
         const location :String = lib.location + ":" + movie.id;
+		
+		// base Class
+        if (XmlUtil.getStringAttr(xml, "symbolType", null) == "button") movie.baseClass = "flash.display.SimpleButton";
+        else {
+            var baseClass:String = XmlUtil.getStringAttr(xml, "linkageBaseClass", null);
+            if (baseClass != "flash.display.MovieClip") movie.baseClass = baseClass;
+        }		
 
         const layerEls :XMLList = xml.timeline.DOMTimeline[0].layers.DOMLayer;
         if (XmlUtil.getStringAttr(xml, EXPORT_BASE_CLASS_NAME, null)=="Flipbook" || XmlUtil.getStringAttr(layerEls[0], XflLayer.NAME) == "flipbook") {
