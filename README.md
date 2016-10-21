@@ -1,3 +1,76 @@
+# Flump+
+
+Flump+ is a fork that adds new features above the Flump original exporter.
+We hope that these features will be embeded in original Flump project.
+
+## The new features of Flump+ are
+### Support of mask layers
+- Only Sprites can be masks
+- Only one masked layer is possible
+
+### Support of tint on Sprites and MovieClips
+- Apply a tint on a MovieClip or Sprite in Flash/Animate and get the tint applied at runtime
+
+### Storage of custom Data in the Json description file
+- Store Flash/Animate persistent Data on instances
+- At runtime get these data with the MovieClip/Sprite getCustomData and Movie getLayerCustomData methods
+
+You can install [persistent data panel](https://github.com/mathieuanthoine/AnimateCCPersistentDataTools) in Flash/Animate to easily manage persistent data. 
+
+### Storage of the base Class
+- create a base class file that inherits from Sprite or MovieClip (see the TextSprite example below)
+- add code in it if you want these instances to have a particular behaviour at compilation
+- the base class of the Sprites or MovieClip instances is stored in the Json description only if they are different than Sprite or MovieClip
+- At runtime, get the base class name with the MovieClip/Sprite getBaseClass method
+- At runtime, create custom behaviour on the base class if you want
+
+### Flipbook class
+- create a base class file named Flipbook
+
+        package {
+			import flash.display.MovieClip;
+			public class Flipbook extends MovieClip {}
+        }
+		
+- set the base class of a Symbol to the Flipbook class
+- Now your Symbol is a Flipbook (no need to name the first layer)
+	
+## At the moment
+- only [pixi-flump-runtime](https://github.com/jackwlee01/pixi-flump-runtime) supports Flump+ features.
+- Tint and mask are not visibles in the Flump+ preview (only in a project using pixi-flump-runtime)
+
+## Examples of new features usage
+### Support of Dynamic TextField
+- Create a base Class named TextSprite, for example:
+
+        package {
+        	import flash.display.Sprite;
+        	import flash.text.TextField;
+        	import flash.utils.getQualifiedClassName;
+        	public class TextSprite extends Sprite {
+        		public function TextSprite() {
+        			super();
+        			for (var i:int = numChildren - 1; i >= 0; i--) {
+        				if (getQualifiedClassName(getChildAt(i)) == "flash.text::TextField") removeChildAt(i);
+        			}
+        			if (numChildren==0) {
+        				graphics.lineTo(1, 1);
+        				graphics.lineStyle(1, 0, 0);
+        			}
+        		}
+        	}
+        }
+
+
+- Set the base class of Sprite symbols that only contain a TextField to the TextSprite class
+- Store the description of the TextFields in the custom Data
+- At compile time, the TextSprite class will remove the TextField to avoid its integration in the atlas
+- At runtime, using data from custom Data storage allows to build a dynamic TextField like in the FLA
+
+### Support of filters
+- Store the filters data in the instance persistent data
+- At runtime, get the filter data with getLayerCustomData and apply a similar filter
+
 # Flump
 
 Flump reads specially-constructed `.fla` and `.xfl` files saved by Flash and extracts animations and
