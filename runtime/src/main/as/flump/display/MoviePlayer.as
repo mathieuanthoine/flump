@@ -23,7 +23,7 @@ public class MoviePlayer
         _displayRoot = root;
         _displayRoot.addEventListener(Event.ADDED, onAdded);
         _displayRoot.addEventListener(Event.REMOVED, onRemoved);
-    }
+	}
 
     public function advanceTime (dt :Number) :void {
         var cur :MoviePlayerNode = _head;
